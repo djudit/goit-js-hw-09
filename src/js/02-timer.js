@@ -13,7 +13,7 @@ const timer = {
   timerSeconds: document.querySelector('span[data-seconds]'),
 };
 
-// timer.style.display = 'flex';
+// // timer.style.display = 'flex';
 
 btnStart.setAttribute('disabled', '');
 btnStart.addEventListener('click', handleClick);
@@ -30,6 +30,7 @@ const options = {
       Notiflix.Notify.failure('Please choose a date in the future');
     }
     delta = convertMs(selectedDates[0].getTime() - Date.now());
+    console.log(delta);
     // Notiflix.Notify.success('Press Stsrt');
     btnStart.removeAttribute('disabled', '');
   },
@@ -74,7 +75,7 @@ let timerId = null;
 
 function handleClick(event) {
   timerId = setInterval(() => {
-    if (ms > 0) {
+    if (delta > 0) {
       delta -= 1;
     } else {
       clearInterval(timerId);
