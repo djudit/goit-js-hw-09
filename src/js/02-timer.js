@@ -2,8 +2,6 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 
-// console.log('test');
-
 const input = document.querySelector('#datetime-picker');
 const btnStart = document.querySelector('button[data-start]');
 const timer = {
@@ -13,12 +11,20 @@ const timer = {
   timerSeconds: document.querySelector('span[data-seconds]'),
 };
 
-// // timer.style.display = 'flex';
+const timerStyle = document.querySelector('.timer');
+// const divField = document.querySelectorAll('.field');
+
+timerStyle.style.display = 'flex';
+timerStyle.style.gap = '20px';
+timerStyle.style.marginTop = '20px';
+// divField.style.display = 'flex';
+// divField.style.flexDirection = 'column';
+// divField.style.alignItems = 'center';
 
 btnStart.setAttribute('disabled', '');
 btnStart.addEventListener('click', handleClick);
 
-let delta;
+let delta = 0;
 
 const options = {
   enableTime: true,
@@ -29,14 +35,17 @@ const options = {
     if (selectedDates[0] <= Date.now()) {
       Notiflix.Notify.failure('Please choose a date in the future');
     }
-    delta = convertMs(selectedDates[0].getTime() - Date.now());
-    console.log(delta);
-    // Notiflix.Notify.success('Press Stsrt');
+    convertMs(selectedDates[0].getTime() - Date.now());
     btnStart.removeAttribute('disabled', '');
   },
 };
 
-flatpickr(input, options);
+const datePicker = flatpickr(input, options);
+
+let today = new Date().getTime();
+let future = Date.parse(datePicker.selectedDates.join(''));
+delta = future - today;
+console.log(delta);
 
 function createTimer({ days, hours, minutes, seconds }) {
   timer.timerDays.textContent = days;
@@ -62,11 +71,6 @@ function convertMs(ms) {
     Math.floor((((ms % day) % hour) % minute) / second)
   );
 
-  // const days = Math.floor(ms / day);
-  // const hours = Math.floor((ms % day) / hour);
-  // const minutes = Math.floor(((ms % day) % hour) / minute);
-  // const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-
   createTimer({ days, hours, minutes, seconds });
   return { days, hours, minutes, seconds };
 }
@@ -75,18 +79,12 @@ let timerId = null;
 
 function handleClick(event) {
   timerId = setInterval(() => {
-    if (delta > 0) {
-      delta -= 1;
+    if (delta < 1000) {
+      convertMs(delta - 1000);
+      today += 1000;
     } else {
       clearInterval(timerId);
+      // return;
     }
   }, 1000);
-
-  // timerId = setInterval(() => {
-  //   if (timer.timerSeconds.textContent >= 1) {
-  //     timer.timerSeconds.textContent -= 1;
-  //   } else {
-  //     clearInterval(timerId);
-  //   }
-  // }, 1000);
 }

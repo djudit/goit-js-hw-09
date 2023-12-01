@@ -16,3 +16,15 @@ img {
   display: block;
   max-width: 100%;
 }
+
+/* .timer {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
