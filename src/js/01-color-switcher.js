@@ -7,6 +7,8 @@ btnStop.addEventListener('click', stopClick);
 
 btnStop.setAttribute('disabled', '');
 
+let timerId;
+
 function startClick(event) {
   if (event.target.nodeName !== 'BUTTON') {
     return;
