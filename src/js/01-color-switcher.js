@@ -16,7 +16,7 @@ function startClick(event) {
     bodyBG.style.backgroundColor = getRandomHexColor();
   }, 1000);
   btnStart.setAttribute('disabled', '');
-  btnStop.removeAttribute('disabled');
+  btnStop.removeAttribute('disabled', '');
 }
 
 function stopClick(event) {
@@ -25,7 +25,7 @@ function stopClick(event) {
   }
   clearInterval(timerId);
   btnStop.setAttribute('disabled', '');
-  btnStart.removeAttribute('disabled');
+  btnStart.removeAttribute('disabled', '');
 }
 
 function getRandomHexColor() {
