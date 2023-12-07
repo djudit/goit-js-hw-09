@@ -8,6 +8,8 @@ const timerHours = document.querySelector('span[data-hours]');
 const timerMinutes = document.querySelector('span[data-minutes]');
 const timerSeconds = document.querySelector('span[data-seconds]');
 
+btnStart.setAttribute('disabled', '');
+
 const timerStyle = document.querySelector('.timer');
 // const divField = document.querySelectorAll('.field');
 
